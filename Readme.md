@@ -2,7 +2,8 @@
 
 ## Description
 This services serves as a lasting memory for applications. 
-Data, save states and updates can be written and read from a file
+Data, save states and updates can be written and read from a file.
+All data is saved in a csv file CData.csv which needs to be initiated with header data according to what you will be storing.
 
 ## Communication
 ### Requesting Data
