@@ -24,6 +24,5 @@ requestData=socket.recv_json()
 
 ### UML Diagram
 
-![img.png](img.png)
-
+![UML.jpg](UML.jpg)
 
