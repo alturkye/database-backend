@@ -39,6 +39,14 @@ def pushUpdates(proj, criteria, targetColumn, newData):
         writer=csv.DictWriter(csvfile, fieldnames=newFile[0].keys())
         writer.writeheader()
         writer.writerows(newFile)
+def addRow(new_data_dict):
+    # Appends a new row dictionary to the CSV
+    with open('CData.csv', mode="a", encoding="utf-8-sig", newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=new_data_dict.keys())
+        writer.writerow(new_data_dict)
+
+    socket.send_json({"Status": "Success", "Message": "Row added"})
+
 def loadState():
     df=pd.read_csv('CData.csv')
     replyData = df.to_json(orient='records')
@@ -56,4 +64,6 @@ while True:
         pushUpdates(requestData["Criteria Column"], requestData["Criteria"], requestData["Data Column"], requestData["New Data"])
     if requestData["Action"]=="loadState":
         loadState()
+    if requestData["Action"] == "addRow":
+        addRow(requestData["New Data"])
     time.sleep(1)
