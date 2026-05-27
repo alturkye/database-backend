@@ -13,10 +13,9 @@ socket.bind("tcp://localhost:49155")
 def getProjects(field, criteria):
 
     #read data from request and pull info from DB table
-    #result_df = duckdb.query("""SELECT # FROM read_csv('CData.csv') WHERE "Project Name"='Paint Doors for example'""").df()
     query = f"""
-            SELECT * 
-            FROM read_csv('CData.csv') 
+            SELECT *
+            FROM read_csv('CData.csv')
             WHERE "{field}" = '{criteria}'
         """
     result_df = duckdb.query(query).df()
@@ -50,8 +49,6 @@ while True:
     requestData=socket.recv_json()
 
     #Read data from JSON sent from request file
-    #requestData={"Action": "getProjects", "Criteria Column": "Project Name", "Criteria": "Paint Doors"}
-    #requestData={"Action": "pushUpdates", "Criteria Column": "ProjID", "Criteria": "1","Data Column": "Scope", "New Data": "Doors need to be painted red"}
 
     if requestData["Action"]=="getProjects":
         getProjects(requestData["Criteria Column"], requestData["Criteria"])
@@ -60,6 +57,3 @@ while True:
     if requestData["Action"]=="loadState":
         loadState()
     time.sleep(1)
-
-
-
